@@ -10,10 +10,10 @@ public abstract class Item {
     private SellIn sellIn;
     private Quality quality;
 
-    Item(String name, int sellIn, int quality) {
-        this.name = new Name(name);
-        this.sellIn = new SellIn(sellIn);
-        this.quality = new Quality(quality);
+    Item(Name name, SellIn sellIn, Quality quality) {
+        this.name = name;
+        this.sellIn = sellIn;
+        this.quality = quality;
     }
 
     public SellIn sellIn() {

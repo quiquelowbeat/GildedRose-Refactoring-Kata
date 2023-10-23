@@ -9,12 +9,14 @@ public class Quality {
     private static final int MIN_QUALITY = 0;
 
     public Quality(int value) {
-        if (isOutOfQualityRange(value)) throw new InvalidQualityValue(value);
+        checkQualityRange(value);
         this.value = value;
     }
 
-    private boolean isOutOfQualityRange(int value) {
-        return value < MIN_QUALITY || value > MAX_QUALITY;
+    protected void checkQualityRange(int value) {
+        if(value < MIN_QUALITY || value > MAX_QUALITY) {
+            throw new InvalidQualityValue(value);
+        }
     }
 
     public int value() {
