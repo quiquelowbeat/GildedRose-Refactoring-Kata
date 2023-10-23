@@ -2,23 +2,26 @@ package com.gildedrose.items;
 
 public final class BackstagePass extends Item {
 
-    private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    private static final int DAYS_FOR_DOUBLE_THE_QUALITY = 10;
+    private static final int DAYS_FOR_TRIPLE_THE_QUALITY = 5;
+    private static final int QUALITY_RESET_PERIOD = 0;
+
 
     public BackstagePass(String name, int sellIn, int quality) {
-        super(BACKSTAGE_PASSES, sellIn, quality);
+        super(name, sellIn, quality);
     }
 
     @Override
     public void updateQuality() {
         decreaseSellIn();
         increaseQuality();
-        if (getSellIn() <= 10) {
+        if (isUnderSellInThresholdOf(DAYS_FOR_DOUBLE_THE_QUALITY)) {
             increaseQuality();
         }
-        if (getSellIn() <= 5) {
+        if (isUnderSellInThresholdOf(DAYS_FOR_TRIPLE_THE_QUALITY)) {
             increaseQuality();
         }
-        if (getSellIn() < 0) {
+        if (isUnderSellInThresholdOf(QUALITY_RESET_PERIOD)) {
             resetQuality();
         }
     }

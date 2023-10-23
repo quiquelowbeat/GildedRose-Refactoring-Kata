@@ -10,10 +10,11 @@ class GildedRoseTest {
 
     @Test
     void foo() {
-        Item[] items = new Item[] { new DefaultItem("foo", 0, 0) };
+        DefaultItem defaultItem = new DefaultItem("foo", 0, 0);
+        Item[] items = new Item[] {defaultItem};
         GildedRose app = new GildedRose();
         app.updateQuality(items);
-        assertEquals(-1, items[0].getSellIn());
+        assertEquals(-1, items[0].sellIn().value());
     }
 
 }

@@ -1,18 +1,18 @@
 package com.gildedrose.items;
 
-public class AgedBrie extends Item {
+public class AgedBrie extends Item{
 
-    private static final String AGED_BRIE = "Aged Brie";
+    private static final int DAYS_TO_DOUBLE_THE_QUALITY = 0;
 
     public AgedBrie(String name, int sellIn, int quality) {
-        super(AGED_BRIE, sellIn, quality);
+        super(name, sellIn, quality);
     }
 
     @Override
     public void updateQuality() {
         decreaseSellIn();
         increaseQuality();
-        if (getSellIn() < 0) {
+        if (isUnderSellInThresholdOf(DAYS_TO_DOUBLE_THE_QUALITY)) {
             increaseQuality();
         }
     }

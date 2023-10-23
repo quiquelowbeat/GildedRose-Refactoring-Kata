@@ -1,48 +1,53 @@
 package com.gildedrose.items;
 
+import com.gildedrose.valueobjects.Name;
+import com.gildedrose.valueobjects.Quality;
+import com.gildedrose.valueobjects.SellIn;
+
 public abstract class Item {
 
-    private final String name;
-    private int sellIn;
-    private int quality;
-
-    private static final int MAX_QUALITY = 50;
-    private static final int MIN_QUALITY = 0;
+    private final Name name;
+    private SellIn sellIn;
+    private Quality quality;
 
     Item(String name, int sellIn, int quality) {
-        this.name = name;
-        this.sellIn = sellIn;
-        this.quality = quality;
+        this.name = new Name(name);
+        this.sellIn = new SellIn(sellIn);
+        this.quality = new Quality(quality);
+    }
+
+    public SellIn sellIn() {
+        return sellIn;
+    }
+
+    public Quality quality() {
+        return quality;
     }
 
     public void increaseQuality() {
-        if (quality < MAX_QUALITY) {
-            quality += 1;
-        }
+        quality = quality.increase();
     }
 
     public void decreaseQuality() {
-        if (quality > MIN_QUALITY) {
-            quality -= 1;
-        }
+        quality = quality.decrease();
     }
 
     public void resetQuality() {
-        quality = MIN_QUALITY;
+        quality = quality.reset();
     }
 
     public void decreaseSellIn() {
-        sellIn -= 1;
+        sellIn = sellIn.decrease();
     }
 
-    public int getSellIn(){
-        return sellIn;
+    public boolean isUnderSellInThresholdOf(int days) {
+        return sellIn.isUnderThresholdOf(days);
     }
 
     public abstract void updateQuality();
 
-   @Override
-   public String toString() {
-        return this.name + ", " + this.sellIn + ", " + this.quality;
+    @Override
+    public String toString() {
+        return this.name.value() + ", " + this.sellIn.value() + ", " + this.quality.value();
     }
 }
