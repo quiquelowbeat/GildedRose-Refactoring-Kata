@@ -19,4 +19,9 @@ public class SellIn {
     public boolean isUnderThresholdOf(int days) {
         return value <= days;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }

@@ -12,4 +12,9 @@ public class Name {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
+
 }

@@ -24,6 +24,10 @@ public abstract class Item {
         return quality;
     }
 
+    public Name name() {
+        return name;
+    }
+
     public void increaseQuality() {
         quality = quality.increase();
     }

@@ -26,7 +26,8 @@ public class TexttestFixture {
         }
 
         for (int i = 0; i < days; i++) {
-            System.out.println("-------- day " + i + " --------");
+            int day = i + 1;
+            System.out.println("-------- day " + day + " --------");
             System.out.println("name, sellIn, quality");
             for (Item item : items) {
                 System.out.println(item);

@@ -40,4 +40,8 @@ public class Quality {
         return new Quality(MIN_QUALITY);
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }
