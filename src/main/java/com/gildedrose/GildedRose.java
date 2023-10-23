@@ -18,44 +18,66 @@ class GildedRose {
         for (Item item : items) {
             switch (item.name) {
                 case AGED_BRIE:
-                    item.sellIn = item.sellIn - 1;
-                    if (item.quality < MAX_QUALITY) {
-                        item.quality = item.quality + 1;
-                    }
-                    if (item.sellIn < 0) {
-                        if (item.quality < MAX_QUALITY) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
+                    decreaseSellIn(item);
+                    updateAgedBrieQuality(item);
                     break;
                 case BACKSTAGE_PASSES:
-                    item.sellIn = item.sellIn - 1;
-                    if (item.quality < MAX_QUALITY) {
-                        item.quality = item.quality + 1;
-                    }
-                    if (item.sellIn < 11 && item.quality < MAX_QUALITY) {
-                        item.quality = item.quality + 1;
-                    }
-                    if (item.sellIn < 6 && item.quality < MAX_QUALITY) {
-                        item.quality = item.quality + 1;
-                    }
-                    if (item.sellIn < 0) {
-                        item.quality = MIN_QUALITY;
-                    }
+                    decreaseSellIn(item);
+                    updateBackstagePassesQuality(item);
                     break;
                 case SULFURAS:
                     break;
                 default:
-                    item.sellIn = item.sellIn - 1;
-                    if (item.quality > MIN_QUALITY) {
-                        item.quality = item.quality - 1;
-                    }
-                    if (item.sellIn < 0) {
-                        if (item.quality > MIN_QUALITY) {
-                            item.quality = item.quality - 1;
-                        }
-                    }
+                    decreaseSellIn(item);
+                    updateDefaultItemQuality(item);
             }
         }
+    }
+
+    private void updateBackstagePassesQuality(Item item) {
+        increaseQuality(item);
+        if (item.sellIn <= 10) {
+            increaseQuality(item);
+        }
+        if (item.sellIn <= 5) {
+            increaseQuality(item);
+        }
+        if (item.sellIn < 0) {
+            resetQuality(item);
+        }
+    }
+
+    private void updateAgedBrieQuality(Item item) {
+        increaseQuality(item);
+        if (item.sellIn < 0) {
+            increaseQuality(item);
+        }
+    }
+
+    private void increaseQuality(Item item) {
+        if (item.quality < MAX_QUALITY) {
+            item.quality += 1;
+        }
+    }
+
+    private void updateDefaultItemQuality(Item item) {
+        decreaseQuality(item);
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
+        }
+    }
+
+    private void decreaseQuality(Item item) {
+        if (item.quality > MIN_QUALITY) {
+            item.quality -= 1;
+        }
+    }
+
+    private void resetQuality(Item item) {
+        item.quality = MIN_QUALITY;
+    }
+
+    private void decreaseSellIn(Item item) {
+        item.sellIn -= 1;
     }
 }
